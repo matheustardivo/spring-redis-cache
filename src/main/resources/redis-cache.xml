@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE redis-cache-configuration [
+<!ELEMENT redis-cache-configuration (cache*) >
+<!ELEMENT cache (#PCDATA)>
+<!ATTLIST cache name 				CDATA    #REQUIRED  >
+<!ATTLIST cache timeToLiveSeconds 	CDATA    #REQUIRED  >
+]>
+
+<redis-cache-configuration>
+
+	<cache name="messageCache" timeToLiveSeconds="5" />
+
+</redis-cache-configuration>
