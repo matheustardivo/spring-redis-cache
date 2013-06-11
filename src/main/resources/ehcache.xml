@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache>
+	<cache name="messageCache"
+		eternal="false"
+		maxElementsInMemory="100"
+		overflowToDisk="false"
+		diskPersistent="false"
+		timeToIdleSeconds="0"
+		timeToLiveSeconds="60"
+		memoryStoreEvictionPolicy="LRU" />
+
+	<cache name="helloCache"
+		eternal="false"
+		maxElementsInMemory="100"
+		overflowToDisk="false"
+		diskPersistent="false"
+		timeToIdleSeconds="0"
+		timeToLiveSeconds="60"
+		memoryStoreEvictionPolicy="LRU" />
+
+	<cache name="helloListCache"
+		eternal="false"
+		maxElementsInMemory="100"
+		overflowToDisk="false"
+		diskPersistent="false"
+		timeToIdleSeconds="0"
+		timeToLiveSeconds="60"
+		memoryStoreEvictionPolicy="LRU" />
+</ehcache>
