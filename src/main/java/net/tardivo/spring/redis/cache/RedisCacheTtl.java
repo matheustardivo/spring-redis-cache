@@ -2,7 +2,7 @@ package net.tardivo.spring.redis.cache;
 
 public enum RedisCacheTtl {
 
-	MESSAGE(RedisCacheKey.MESSAGE, 5L);
+	MESSAGE(RedisCacheKey.MESSAGE, 50L), HELLO(RedisCacheKey.HELLO, 50L), HELLO_LIST(RedisCacheKey.HELLO_LIST, 50L);
 
 	private String key;
 
