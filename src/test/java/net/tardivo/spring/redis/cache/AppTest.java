@@ -1,20 +1,37 @@
 package net.tardivo.spring.redis.cache;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import lombok.extern.slf4j.Slf4j;
 
-public class AppTest extends TestCase {
+import org.junit.Test;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
 
-	public AppTest(String testName) {
-		super(testName);
-	}
+@Slf4j
+public class AppTest {
 
-	public static Test suite() {
-		return new TestSuite(AppTest.class);
-	}
+	@Test
+	public void run() {
+		AbstractApplicationContext ctx = new AnnotationConfigApplicationContext(SpringConfiguration.class);
+		ctx.registerShutdownHook();
 
-	public void testApp() {
-		assertTrue(true);
+		HelloService helloService = ctx.getBean(HelloService.class);
+
+		ByeService byeService = ctx.getBean(ByeService.class);
+
+		for (int i = 0; i < 100; i++) {
+			log.info(helloService.getMessage("Matheus" + i));
+
+			log.info("{}", helloService.getByeByName("Matheus" + i));
+
+			log.info("{}", helloService.getHello("Matheus" + i, "Opa"));
+
+			log.info("{}", helloService.getAllHello(new Hello("Matheus" + i, "Opa")));
+
+			log.info("{}", byeService.getBye("Rodrigo" + i, 10));
+
+			log.info("{}", byeService.getAllBye(new Bye("Rodrigo" + i, 10)));
+
+			log.info("{}", helloService.sayGoodBye("Rodrigo" + i, 10));
+		}
 	}
 }

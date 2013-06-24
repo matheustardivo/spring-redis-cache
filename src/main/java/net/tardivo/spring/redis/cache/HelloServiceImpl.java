@@ -12,13 +12,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class HelloServiceImpl implements HelloService {
 
-	@Cacheable(value = RedisCacheKey.MESSAGE)
+	@Cacheable(value = "HelloService~getMessage", key = "T(net.tardivo.spring.redis.cache.CacheKeySupport).generateKey('HelloService~getMessage', #name)")
+	@CacheConfig(ttl = 60)
 	public String getMessage(String name) {
 		log.info("Running getMessage method with the name: {}", name);
 		return "Hello " + name + "...";
 	}
 
-	@Cacheable(value = RedisCacheKey.HELLO)
+	@Cacheable(value = "HelloService~getHello", key = "T(net.tardivo.spring.redis.cache.CacheKeySupport).generateKey('HelloService~getHello', #name, #message)")
+	@CacheConfig(ttl = 60)
 	public Hello getHello(String name, String message) {
 		log.info("Running getHello method with the name: {}, message: {}", name, message);
 		Hello hello = new Hello(name, message);
@@ -26,8 +28,8 @@ public class HelloServiceImpl implements HelloService {
 		return hello;
 	}
 
-	@Cacheable(value = RedisCacheKey.HELLO_LIST)
-	@Override
+	@Cacheable(value = "HelloService~getAllHello")
+	@CacheConfig(ttl = 60)
 	public List<Hello> getAllHello(Hello hello) {
 		log.info("Running getAllHello method with the hello: {}", hello);
 
@@ -38,5 +40,19 @@ public class HelloServiceImpl implements HelloService {
 			helloList.add(hello2);
 		}
 		return helloList;
+	}
+
+	@Cacheable(value = "HelloService~sayGoodBye")
+	@CacheConfig(ttl = 60)
+	public Bye sayGoodBye(String message, long times) {
+		log.info("Running sayGoodBye method with the message: {}, times: {}", message, times);
+		return new Bye(message, times);
+	}
+
+	@Cacheable(value = "HelloService~getByeByName", key = "T(net.tardivo.spring.redis.cache.CacheKeySupport).generateKey('HelloService~getByeByName', #name)")
+	@CacheConfig(ttl = 60)
+	public Bye getByeByName(String name) {
+		log.info("Running getByeByName method with the name: {}", name);
+		return new Bye(name, 10);
 	}
 }

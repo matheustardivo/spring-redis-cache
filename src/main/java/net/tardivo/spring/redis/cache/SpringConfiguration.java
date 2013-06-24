@@ -1,8 +1,5 @@
 package net.tardivo.spring.redis.cache;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
@@ -51,16 +48,8 @@ public class SpringConfiguration {
 
 	@Bean
 	CacheManager cacheManager() {
-		RedisCacheManager redisCacheManager = new RedisCacheManager(
-				redisTemplate());
-
-		Map<String, Long> map = new HashMap<String, Long>();
-		for (RedisCacheTtl cacheTtl : RedisCacheTtl.values()) {
-			map.put(cacheTtl.getKey(), cacheTtl.getTtl());
-		}
-
-		redisCacheManager.setExpires(map);
-
+		RedisCacheManager redisCacheManager = new RedisCacheManager(redisTemplate());
+		RedisCacheConfiguration.configureTtlWithReflection(redisCacheManager);
 		return redisCacheManager;
 	}
 }
